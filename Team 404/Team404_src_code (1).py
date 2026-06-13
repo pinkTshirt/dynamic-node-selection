@@ -1,7 +1,7 @@
 import numpy as np
 from itertools import product
 
-# ── helpers ────────────────────────────────────────────────────────────────
+#helpers
 
 def generate_poly_from_roots(degree, a=-3, b=3):
     """Build monic polynomial coefficients from evenly-spaced roots inside [a,b]."""
@@ -20,8 +20,7 @@ def find_sign_changes(f, a, b, n=300):
         if fvals[i] * fvals[i + 1] < 0:
             intervals.append((pts[i], pts[i + 1]))
     return intervals
-
-# ── Phase 1 : modified secant ───────────────────────────────────────────────
+#modified secant
 
 def modified_secant(f, x0, tol=1e-8, max_iter=60):
     """Single-point secant using finite-difference slope estimate."""
@@ -54,7 +53,7 @@ def phase1_secant(f, intervals, tol):
                             log=log, interval=(lo, hi)))
     return results
 
-# ── Phase 2 : Chebyshev-Frobenius companion eigenvalues ────────────────────
+#chebyshev-frobenius companion eigenvalues
 
 def map_to_standard(x, a, b):
     return 2 * (x - a) / (b - a) - 1
@@ -83,7 +82,7 @@ def companion_eigenvalues(coeffs_np, a, b):
     real_eigs = eigs[np.abs(eigs.imag) < 1e-6].real
     return np.sort(real_eigs)
 
-# ── Dynamic Node Selection ─────────────────────────────────────────────────
+#dns
 
 def dynamic_node_selection(degree, a, b, tol):
     coeffs, true_roots = generate_poly_from_roots(degree, a, b)
@@ -115,7 +114,7 @@ def dynamic_node_selection(degree, a, b, tol):
     for r in eig_roots_inrange:
         print(f"  {r:22.8f}  {abs(f(r)):12.2e}  {'Frobenius':>14}")
 
-    # ── DNS decision logic
+    #dns logic
     print(f"\n  Dynamic Node Selection decision:")
     if len(intervals) == degree:
         print(f"  → {len(intervals)} brackets == degree {degree}: "
@@ -139,7 +138,7 @@ def dynamic_node_selection(degree, a, b, tol):
 
     return primary
 
-# ── Run for several configurations ────────────────────────────────────────
+# config
 
 configs = [
     dict(degree=2, a=-3,  b=3,  tol=1e-6),
