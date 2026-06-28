@@ -1,0 +1,35 @@
+name: Run Dynamic Root Selection
+
+# This section defines WHEN the action will run.
+on:
+  push:
+    branches: [ "main" ] # Runs when you push to main
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Allows you to trigger the run manually from the GitHub UI
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest # The operating system for the runner
+
+    steps:
+    # 1. Check out your repository code so the runner can access it
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Set up the Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10' # Change this to the version you used to write the code
+
+    # 3. Install your dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # 4. Run your Python script!
+    - name: Run Root Selection Code
+      run: |
+        python dynamic_root.py # IMPORTANT: Replace with your actual script's filename
