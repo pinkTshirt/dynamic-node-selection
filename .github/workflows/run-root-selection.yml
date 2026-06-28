@@ -34,3 +34,10 @@ jobs:
     - name: Run Root Selection Code
       run: |
         python "Team 404/Team404_src_code (1).py"
+
+    # 5. Upload the output files as Artifacts
+    - name: Upload Output Files
+      uses: actions/upload-artifact@v4
+      with:
+        name: dynamic-root-results # This is what the downloaded zip file will be named
+        path: results.csv # IMPORTANT: Change this to the exact name of the file your Python code saves
