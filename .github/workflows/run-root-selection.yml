@@ -27,7 +27,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install numpy
+        # If you use other libraries, add them to the line above, like: pip install numpy scipy sympy
 
     # 4. Run your Python script!
     - name: Run Root Selection Code
