@@ -161,3 +161,26 @@ print(f"  {'-'*46}")
 for cfg, (deg, roots) in zip(configs, all_results.items()):
     interval = f"[{cfg['a']},{cfg['b']}]"
     print(f"  {deg:6d}  {interval:>12}  {cfg['tol']:8.0e}  {len(roots):12d}")
+# [Your existing code above...]
+for cfg, (deg, roots) in zip(configs, all_results.items()):
+    interval = f"[{cfg['a']},{cfg['b']}]"
+    print(f"  {deg:6d}  {interval:>12}  {cfg['tol']:8.0e}  {len(roots):12d}")
+
+# ==========================================
+# NEW CODE TO SAVE RESULTS FOR GITHUB ACTIONS
+# ==========================================
+print("\nSaving results to results.csv...")
+
+with open("results.csv", "w") as f:
+    # 1. Write the header row
+    f.write("Degree, Interval_a, Interval_b, Tolerance, Roots_Found, Root_Values\n")
+    
+    # 2. Write the data for each configuration
+    for cfg, (deg, roots) in zip(configs, all_results.items()):
+        # Format the roots into a single string separated by semicolons
+        roots_str = "; ".join([f"{r:.6f}" for r in roots])
+        
+        # Write the comma-separated values to the file
+        f.write(f"{deg}, {cfg['a']}, {cfg['b']}, {cfg['tol']}, {len(roots)}, {roots_str}\n")
+
+print("Success! results.csv created.")
