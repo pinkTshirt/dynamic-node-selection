@@ -56,7 +56,7 @@ pip install numpy
 
 *Run the code on terminal as* : python main.py
 
-**upon launching,** the terminal will say:
+### upon launching, the terminal will say:
 ==================================================
   DYNAMIC NODE SELECTION — INTERACTIVE PLAYGROUND
 ==================================================
